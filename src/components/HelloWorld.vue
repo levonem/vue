@@ -21,7 +21,10 @@
 			submit
 		</v-btn>
 		<v-btn @click="clear">clear</v-btn>
+
+		<h1>{{ name }}</h1>
 	</v-form>
+
 </template>
 
 <script>
@@ -32,7 +35,9 @@
             valid: true,
             name: '',
             nameRules: [
-                v => !!v || 'Name is required',
+                v => {
+                console.log(v)
+                return !!v || 'Name is required'},
                 v => (v && v.length <= 10) || 'Name must be less than 10 characters'
             ],
             email: '',
@@ -48,7 +53,7 @@
                 console.log('this.$refs.form.validate()' ,this.$refs.form.validate())
 
                 if (this.$refs.form.validate()) {
-                    axios.post('https://seraphic-vertex-198112.firebaseio.com/users.json', {
+                    axios.post('/users.json', {
                         name: this.name,
                         email: this.email,
                     }).then(this.$router.push('/user'))

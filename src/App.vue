@@ -12,7 +12,7 @@
 			<v-container grid-list-md text-xs-center>
 				<transition
 						mode="out-in"
-						duration="300"
+						:duration="{ enter: 300, leave: 200 }"
 						enter-active-class="animated slideInLeft"
 						leave-active-class="animated slideOutRight"
 				>
