@@ -21,8 +21,6 @@
 			submit
 		</v-btn>
 		<v-btn @click="clear">clear</v-btn>
-
-		<h1>{{ name }}</h1>
 	</v-form>
 
 </template>
@@ -36,7 +34,6 @@
             name: '',
             nameRules: [
                 v => {
-                console.log(v)
                 return !!v || 'Name is required'},
                 v => (v && v.length <= 10) || 'Name must be less than 10 characters'
             ],

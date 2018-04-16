@@ -3,8 +3,9 @@
 		<v-toolbar>
 			<v-spacer/>
 			<v-toolbar-items>
-				<v-btn to="/">Home</v-btn>
-				<v-btn to="/user">About</v-btn>
+				<v-btn to="/">Register</v-btn>
+				<v-btn to="/user">Users</v-btn>
+				<v-btn to="/login">Login</v-btn>
 			</v-toolbar-items>
 			<v-spacer/>
 		</v-toolbar>
@@ -30,8 +31,4 @@
 		-moz-osx-font-smoothing: grayscale;
 		text-align: center;
 	}
-
-.pos-abolute {
-	position: absolute;
-}
 </style>

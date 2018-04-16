@@ -9,7 +9,7 @@ import axios from 'axios'
 Vue.use(Vuetify);
 axios.defaults.baseURL= 'https://seraphic-vertex-198112.firebaseio.com';
 
-Vue.config.productionTip = false
+Vue.config.productionTip = false;
 
 new Vue({
     router,

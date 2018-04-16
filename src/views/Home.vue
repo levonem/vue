@@ -1,7 +1,7 @@
 <template>
 	<v-layout row justify-center>
 		<v-flex xs4>
-			<HelloWorld/>
+			<register/>
 		</v-flex>
 	</v-layout>
 
@@ -9,12 +9,12 @@
 
 <script>
     // @ is an alias to /src
-    import HelloWorld from '@/components/HelloWorld.vue'
+    import Register from '@/components/Register.vue'
 
     export default {
         name: 'home',
         components: {
-            HelloWorld
+	        Register
         }
     }
 </script>
