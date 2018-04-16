@@ -49,9 +49,8 @@
 						.then(res => {
 							const data = res.data;
 							for (let user in data) {
-								console.log(data[user].name == this.name)
 								this.user = data[user].name == this.name ? data[user] : false;
-								console.log(this.user)
+								this.$router.push({name: 'userInfo', params: {id: user}});
 								break
 							}
 							this.showUser = true
