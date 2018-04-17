@@ -1,28 +1,33 @@
 <template>
 	<v-flex>
-		<v-form v-model="valid" ref="form" lazy-validation>
+		<v-form @submit.prevent v-model="valid" ref="form" lazy-validation>
 			<v-text-field
 					label="Name"
 					v-model="name"
 					:rules="nameRules"
-					:counter="10"
 					required
 			/>
 
+			<v-text-field
+					label="Password"
+					v-model="password"
+					required
+					type="password"
+					:rules="passRules"
+			/>
 			<v-btn
 					@click="submit"
 					:disabled="!valid"
+					type="submit"
 			>
 				submit
 			</v-btn>
 		</v-form>
-		<h1 v-if="showUser" :class="[ user ? 'green--text' : 'red--text' ]">
-			<div v-if="user">
-				<p>name: {{ user.name }}</p>
-				<p>Email: {{ user.email }}</p>
-			</div>
-			<span v-else> INVALID USER </span>
-		</h1>
+		<!--<h1 v-if="showUser" :class="[ user ? 'green&#45;&#45;text' : 'red&#45;&#45;text' ]">-->
+		<!--<div v-if="!user">-->
+		<!--INVALID USER-->
+		<!--</div>-->
+		<!--</h1>-->
 	</v-flex>
 </template>
 
@@ -34,27 +39,37 @@
 			valid: true,
 			name: '',
 			nameRules: [
-				v => {
-					return !!v || 'Name is required'
-				},
-				v => (v && v.length <= 10) || 'Name must be less than 10 characters'
+				v => !!v || 'Name is required',
 			],
-			user: null,
-			showUser: false,
+			password: '',
+			passRules: [
+				v => !!v || 'Name is required',
+			],
 		}),
+		watch: {},
 		methods: {
 			submit() {
 				if (this.$refs.form.validate()) {
 					axios.get('/users.json')
 						.then(res => {
 							const data = res.data;
+							console.log('data', data)
+
 							for (let user in data) {
-								this.user = data[user].name == this.name ? data[user] : false;
-								this.$router.push({name: 'userInfo', params: {id: user}});
-								break
+								console.log(data[user].name)
+
+								if (data[user].name == this.name) {
+									if (data[user].password == this.password) {
+										this.user = data[user];
+										this.$router.push({name: 'userInfo', params: {id: user}});
+									}
+									console.log('this.user', this.user)
+									break
+								}
 							}
-							this.showUser = true
 						})
+						.catch(err => console.log(err))
+
 				}
 			}
 		},

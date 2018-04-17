@@ -1,5 +1,5 @@
 <template>
-	<v-form v-model="valid" ref="form" lazy-validation>
+	<v-form @submit.prevent v-model="valid" ref="form" lazy-validation>
 		<v-text-field
 				label="Name"
 				v-model="name"
@@ -13,10 +13,17 @@
 				:rules="emailRules"
 				required
 		/>
-
+		<v-text-field
+				label="Password"
+				v-model="password"
+				:rules="passRules"
+				type="password"
+				required
+		/>
 		<v-btn
 				@click="submit"
 				:disabled="!valid"
+				type="submit"
 		>
 			submit
 		</v-btn>
@@ -42,6 +49,11 @@
                 v => !!v || 'E-mail is required',
                 v => /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v) || 'E-mail must be valid'
             ],
+	        password: '',
+	        passRules: [
+		        v => !!v || 'Password is required',
+	          v => (v.length >= 4 && v.length <= 10) || 'Name must be more than 4 and less than 10 characters'
+          ],
         }),
 
         methods: {
@@ -53,6 +65,7 @@
                     axios.post('/users.json', {
                         name: this.name,
                         email: this.email,
+		                    password: this.password
                     }).then(this.$router.push('/user'))
                 }
             },

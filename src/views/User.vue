@@ -3,9 +3,8 @@
 		<v-progress-circular v-if="bool" indeterminate :size="70" :width="7" color="amber"
 		                     class="mt-5 pt-5"></v-progress-circular>
 		<v-list two-line v-else>
-			<v-list-tile-content
-					v-for="u in users"
-			> name: {{ u.name }} || email: {{ u.email }}
+			<v-list-tile-content>
+				name: {{ user.name }} || email: {{ user.email }}
 			</v-list-tile-content>
 		</v-list>
 	</div>
@@ -17,7 +16,7 @@
 	export default {
 		data() {
 			return {
-				users: '',
+				user: '',
 				bool: true,
 			}
 		},
@@ -26,11 +25,11 @@
 			axios.get('/users.json')
 				.then(res => {
 					let data = res.data;
-					let users = [];
-					for (let d in data) {
-						users.push(data[d])
+					for (let u in data) {
+						if( u == this.$route.params.id){
+							this.user = data[u]
+						}
 					}
-					this.users = users;
 					this.bool = false;
 				})
 				.catch(err => console.log(err))
